@@ -11,8 +11,17 @@
   <h1><b>Bienvenido</b></h1>
   <h5>{{ currentDate }}</h5>
 
+  <ion-card *ngFor="let task of tasks">
+    <ion-item lines="none">
+      <ion-label>
+        <h2>{{ task.text }}</h2>
+        <p>{{ task.date}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
   <!-- Icon para asignar tareas-->
-  <ion-card>
+  <ion-card *ngIf="addTask">
     <ion-item lines="none">
       <ion-input [(ngModel)]="myTask" placeholder="Introduzca la tarea"></ion-input>
       <ion-button (click)="addTaskToFirebase()" shape="round" slot="end">
@@ -21,6 +30,15 @@
     </ion-item>
   </ion-card>
 
+  <ion-button *ngIf="!addTask" (click)="showForm()" expand="block" class="add-button">
+    <ion-icon name="add" slot="start"></ion-icon>
+    Agregar una tarea
+  </ion-button>
+
+  <ion-button *ngIf="addTask" (click)="showForm()" expand="block" class="add-button">
+    <ion-icon name="close" slot="start"></ion-icon>
+    Cancelar
+  </ion-button>
 </div>
 
 

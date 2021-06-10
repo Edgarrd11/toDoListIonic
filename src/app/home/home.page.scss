@@ -19,3 +19,16 @@ h5 {
   margin-bottom: 15px;
   text-transform: capitalize;
 }
+// Toma en cuenta el bottom para la barra de iOS
+.add-button {
+  --background: #383a3e;
+  position: absolute;
+  bottom: 30px;
+  width: 96%;
+  --color: #ffffff;
+  margin-left: 2%;
+}
+ion-card {
+  margin-bottom: 0px;
+  margin-top: 6px;
+}

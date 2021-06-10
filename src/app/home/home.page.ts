@@ -9,26 +9,56 @@ import { AngularFireDatabase } from '@angular/fire/database';
 })
 export class HomePage {
   currentDate: string;
-  //Cambiar por añadir tarea
   myTask: string;
+  addTask: boolean;
+  tasks = [];
 
 
   constructor(public afDB: AngularFireDatabase) {
     const date = new Date();
-
     //this.currentDate = date.toLocaleDateString()
     //Fecha abajo de bienvenido
     const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
     this.currentDate = new Intl.DateTimeFormat('es-ES',options).format(date);
+    this.getTasks()
+
   }
 
   //Funcion para añadir tareas a Firebase
   addTaskToFirebase() {
-    //console.log('Prueba');
     this.afDB.list('Task/').push({
       text: this.myTask,
       date: new Date().toISOString().substring(0, 10),
       checked: false
     });
+    this.showForm();
+    console.log('agregado con exito');
+  }
+  showForm() {
+    this.addTask = !this.addTask;
+    this.myTask = '';
+  }
+  // getTasks() {
+  //   this.afDB.list('Tasks/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
+  //     // this.tasks = [];
+  //     actions.forEach(action => {
+  //       console.log('Tarea: ' + action.payload.exportVal().text());
+  //       // this.tasks.push({
+  //         // key: action.key,
+  //         // text: action.payload.exportVal().text,
+  //         // hour: action.payload.exportVal().date.substring(11, 16),
+  //         // checked: action.payload.exportVal().checked
+  //   //     });
+  //    });
+  //   });
+  // }
+
+  //Funcion para obtener la lista de tareas
+  getTasks() {
+    this.afDB.list('Tasks/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
+      actions.forEach(action => {
+        console.log('Tarea: ' + action.payload.exportVal().text)
+      })
+    })
   }
 }
