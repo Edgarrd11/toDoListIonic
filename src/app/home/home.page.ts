@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
 export class HomePage {
   currentDate: string;
 
-  constructor() {
+  constructor(public afDB: AngularFireDatabase) {
     const date = new Date();
 
     //this.currentDate = date.toLocaleDateString()
