@@ -6,7 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  currentDate: string;
 
-  constructor() {}
+  constructor() {
+    const date = new Date();
+
+    //this.currentDate = date.toLocaleDateString()
+    //Fecha abajo de bienvenido
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+    this.currentDate = new Intl.DateTimeFormat('es-ES',options).format(date);
+  }
 
 }
