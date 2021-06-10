@@ -27,7 +27,7 @@ export class HomePage {
     //console.log('Prueba');
     this.afDB.list('Task/').push({
       text: this.myTask,
-      //date: new Date().toString,
+      date: new Date().toISOString().substring(0, 10),
       checked: false
     });
   }
