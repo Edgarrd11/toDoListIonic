@@ -11,6 +11,16 @@
   <h1><b>Bienvenido</b></h1>
   <h5>{{ currentDate }}</h5>
 
+  <!-- Icon para asignar tareas-->
+  <ion-card>
+    <ion-item lines="none">
+      <ion-input [(ngModel)]="myTask" placeholder="Introduzca la tarea"></ion-input>
+      <ion-button (click)="addTaskToFirebase()" shape="round" slot="end">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-card>
+
 </div>
 
 

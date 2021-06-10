@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Component } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 
@@ -8,6 +9,9 @@ import { AngularFireDatabase } from '@angular/fire/database';
 })
 export class HomePage {
   currentDate: string;
+  //Cambiar por añadir tarea
+  myTask: string;
+
 
   constructor(public afDB: AngularFireDatabase) {
     const date = new Date();
@@ -18,4 +22,13 @@ export class HomePage {
     this.currentDate = new Intl.DateTimeFormat('es-ES',options).format(date);
   }
 
+  //Funcion para añadir tareas a Firebase
+  addTaskToFirebase() {
+    //console.log('Prueba');
+    this.afDB.list('Task/').push({
+      text: this.myTask,
+      //date: new Date().toString,
+      checked: false
+    });
+  }
 }
