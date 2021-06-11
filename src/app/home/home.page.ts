@@ -20,7 +20,8 @@ export class HomePage {
     //Fecha abajo de bienvenido
     const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
     this.currentDate = new Intl.DateTimeFormat('es-ES',options).format(date);
-    this.getTasks()
+    console.log('se manda a llamar el constructor');
+    this.getTasks();
 
   }
 
@@ -42,10 +43,8 @@ export class HomePage {
   //Funcion para obtener la lista de tareas
   getTasks() {
     this.afDB.list('Task/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
-      console.log(actions)
-      actions.forEach(action => {
-
-        console.log('Tarea: ' + action.payload.exportVal().text);
+        actions.forEach(action => {
+        console.log('Se mando a traer datos de la BD: ', action.payload.exportVal().text);
         this.tasks.push({
           key: action.key,
           text: action.payload.exportVal().text,
@@ -55,6 +54,13 @@ export class HomePage {
       })
     })
   }
+  //Funcion para eliminar tareas con sliding
+  deleteTask(task: any) {
+    this.afDB.list('Task/').remove(task.key);
+    console.log('Se elimino ' + task.text);
+  }
+
+//Funcion para cambiar de checked en la BD
   changeCheckState(task: any) {
     console.log('checked: ' + task.checked);
     this.afDB.object('Task/' + task.key + '/checked/').set(task.checked);
