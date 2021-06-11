@@ -38,30 +38,20 @@ export class HomePage {
     this.addTask = !this.addTask;
     this.myTask = '';
   }
-  // getTasks() {
-  //   this.afDB.list('Task/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
-  //     // this.tasks = [];
-  //     actions.forEach(action => {
-  //       console.log('Tarea: ' + action.payload.exportVal().text());
-  //       // this.tasks.push({
-  //         // key: action.key,
-  //         // text: action.payload.exportVal().text,
-  //         // hour: action.payload.exportVal().date.substring(11, 16),
-  //         // checked: action.payload.exportVal().checked
-  //   //     });
-  //    });
-  //   });
-  // }
 
   //Funcion para obtener la lista de tareas
   getTasks() {
-
     this.afDB.list('Task/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
       console.log(actions)
       actions.forEach(action => {
 
-        console.log('Tarea: ' + action.payload.exportVal().text)
-
+        console.log('Tarea: ' + action.payload.exportVal().text);
+        this.tasks.push({
+          key: action.key,
+          text: action.payload.exportVal().text,
+          date: action.payload.exportVal().date,
+          checked: action.payload.exportVal().checked,
+        })
       })
     })
   }
