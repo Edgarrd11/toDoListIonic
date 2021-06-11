@@ -11,8 +11,10 @@
   <h1><b>Bienvenido</b></h1>
   <h5>{{ currentDate }}</h5>
 
+  <!-- Itrera los pendientes y los muestra en el DOM -->
   <ion-card *ngFor="let task of tasks">
     <ion-item lines="none">
+      <ion-checkbox (ionChange)="changeCheckState(task)" [(ngModel)]="task.checked"  color="sucess" slot="start"></ion-checkbox>
       <ion-label>
         <h2>{{ task.text }}</h2>
         <p>{{ task.date}}</p>
