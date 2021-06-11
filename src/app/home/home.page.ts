@@ -43,14 +43,15 @@ export class HomePage {
   //Funcion para obtener la lista de tareas
   getTasks() {
     this.afDB.list('Task/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
+        this.tasks = [];
         actions.forEach(action => {
         console.log('Se mando a traer datos de la BD: ', action.payload.exportVal().text);
-        this.tasks.push({
-          key: action.key,
-          text: action.payload.exportVal().text,
-          date: action.payload.exportVal().date,
-          checked: action.payload.exportVal().checked,
-        })
+          this.tasks.push({
+            key: action.key,
+            text: action.payload.exportVal().text,
+            date: action.payload.exportVal().date,
+            checked: action.payload.exportVal().checked,
+          })
       })
     })
   }
