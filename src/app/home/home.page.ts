@@ -39,7 +39,7 @@ export class HomePage {
     this.myTask = '';
   }
   // getTasks() {
-  //   this.afDB.list('Tasks/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
+  //   this.afDB.list('Task/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
   //     // this.tasks = [];
   //     actions.forEach(action => {
   //       console.log('Tarea: ' + action.payload.exportVal().text());
@@ -55,9 +55,13 @@ export class HomePage {
 
   //Funcion para obtener la lista de tareas
   getTasks() {
-    this.afDB.list('Tasks/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
+
+    this.afDB.list('Task/').snapshotChanges(['child_added', 'child_removed']).subscribe(actions => {
+      console.log(actions)
       actions.forEach(action => {
+
         console.log('Tarea: ' + action.payload.exportVal().text)
+
       })
     })
   }
